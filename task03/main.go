@@ -53,7 +53,7 @@ func (order Order) create() (result bool){
 }
 
 func (order Order) perfectOutput() string{
-	return fmt.Sprintf("%+v",order)
+	return fmt.Sprintf("имя: %s; фамилия: %s; адрес: %s; индекс: %d; номер заказа: %d; имя товара: %s; цена: %.2f;",order.firstName, order.lastName, order.address, order.zipCode, order.id, order.name, order.cost)
 }
 
 func main() {
