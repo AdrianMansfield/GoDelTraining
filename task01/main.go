@@ -27,6 +27,10 @@ func (order Order) checkPayment(payment float64) (isEnough bool) {
 	return
 }
 
+func (order *Order) changeAddress(newAddress string)  {
+	order.address = newAddress
+}
+
 func isBelorussian(order Order) {
 	if strings.Contains(order.address,"Belarus") {
 		fmt.Println("Заплати налог!!!")
@@ -36,7 +40,9 @@ func isBelorussian(order Order) {
 
 func main() {
 	firstOrder := Order{Customer{"Andrey", "Mayorau", "Belarus Gomel Belitca", 111111}, 228, "laptop", 789.23}
-	fmt.Println(firstOrder)
+	fmt.Printf("%+v\n",firstOrder)
 	fmt.Println(firstOrder.checkPayment(900))
 	isBelorussian(firstOrder)
+	firstOrder.changeAddress("Belarus Gomel Makaenka")
+	fmt.Printf("%+v\n",firstOrder)
 }
