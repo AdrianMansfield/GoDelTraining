@@ -2,7 +2,7 @@ package main
 
 import "fmt"
 
-type dataInDBCreater interface {
+type dataInDatabase interface {
 	create() bool
 }
 
@@ -24,7 +24,7 @@ type Order struct {
 	cost float64
 }
 
-func (customer Customer) create() (result bool){
+func (customer *Customer) create() (result bool){
 	fmt.Println("Start transaction...")
 	result = false
 	//проверка на отсутсвие такого заказчика в базе
@@ -38,7 +38,7 @@ func (customer Customer) create() (result bool){
 	return
 }
 
-func (order Order) create() (result bool){
+func (order *Order) create() (result bool){
 	fmt.Println("Start transaction...")
 	result = false
 	//проверка на отсутсвие такого заказа в базе
@@ -50,6 +50,10 @@ func (order Order) create() (result bool){
 		fmt.Println("Order saved failed!")
 	}
 	return
+}
+
+func createDatabaseEntry(d dataInDatabase) bool{
+	 return d.create()
 }
 
 func (order Order) perfectOutput() string{
@@ -64,12 +68,12 @@ func main() {
 	laptopCustomer := Customer{"Andrey", "Mayorau", "Belarus Gomel Belitca", 111111}
 	laptopCustomer.create()
 
-	//второй таск, с интерфейсом сделанным по примеру stringer
-	ordersArray := [4]Order{
-		{Customer{"Andrey", "Mayorau", "Belarus Gomel Belitca", 111111}, 228, "laptop", 789.23},
-		{Customer{"Julia", "Pritychenko", "Belarus Gomel Makaenka", 100156}, 456, "cellphone", 290.78},
-		{Customer{"Oleg", "Dedik", "Lithuania Kaunas Dworaka", 200987}, 470, "ticket", 50.56},
-		{Customer{"Zaretskiy", "Roman", "Belarus Minsk Nezaleznasti", 101567}, 681, "crisps", 10.45},
+	//второй таск, с интерфейсом сделанным по примеру stringer и использованием интерфейса
+	ordersArray := [4]dataInDatabase{
+		&Order{Customer{"Andrey", "Mayorau", "Belarus Gomel Belitca", 111111}, 228, "laptop", 789.23},
+		&Order{Customer{"Julia", "Pritychenko", "Belarus Gomel Makaenka", 100156}, 456, "cellphone", 290.78},
+		&Order{Customer{"Oleg", "Dedik", "Lithuania Kaunas Dworaka", 200987}, 470, "ticket", 50.56},
+		&Order{Customer{"Zaretskiy", "Roman", "Belarus Minsk Nezaleznasti", 101567}, 681, "crisps", 10.45},
 	}
 	for i := 0; i < len(ordersArray); i++ {
 		fmt.Println(ordersArray[i].perfectOutput())
