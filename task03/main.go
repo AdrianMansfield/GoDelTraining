@@ -63,17 +63,17 @@ func (order Order) perfectOutput() string{
 func main() {
 	//переделанный первый таск, с другими функциями
 	laptopOrder := Order{Customer{"Andrey", "Mayorau", "Belarus Gomel Belitca", 111111}, 228, "laptop", 789.23}
-	laptopOrder.create()
+	createDatabaseEntry(&laptopOrder)
 
 	laptopCustomer := Customer{"Andrey", "Mayorau", "Belarus Gomel Belitca", 111111}
-	laptopCustomer.create()
+	createDatabaseEntry(&laptopCustomer)
 
-	//второй таск, с интерфейсом сделанным по примеру stringer и использованием интерфейса
-	ordersArray := [4]dataInDatabase{
-		&Order{Customer{"Andrey", "Mayorau", "Belarus Gomel Belitca", 111111}, 228, "laptop", 789.23},
-		&Order{Customer{"Julia", "Pritychenko", "Belarus Gomel Makaenka", 100156}, 456, "cellphone", 290.78},
-		&Order{Customer{"Oleg", "Dedik", "Lithuania Kaunas Dworaka", 200987}, 470, "ticket", 50.56},
-		&Order{Customer{"Zaretskiy", "Roman", "Belarus Minsk Nezaleznasti", 101567}, 681, "crisps", 10.45},
+	//второй таск, с интерфейсом сделанным по примеру stringer
+	ordersArray := [4]Order{
+		Order{Customer{"Andrey", "Mayorau", "Belarus Gomel Belitca", 111111}, 228, "laptop", 789.23},
+		Order{Customer{"Julia", "Pritychenko", "Belarus Gomel Makaenka", 100156}, 456, "cellphone", 290.78},
+		Order{Customer{"Oleg", "Dedik", "Lithuania Kaunas Dworaka", 200987}, 470, "ticket", 50.56},
+		Order{Customer{"Zaretskiy", "Roman", "Belarus Minsk Nezaleznasti", 101567}, 681, "crisps", 10.45},
 	}
 	for i := 0; i < len(ordersArray); i++ {
 		fmt.Println(ordersArray[i].perfectOutput())
